@@ -27,6 +27,7 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+
         Application.targetFrameRate = 60;
         //アタッチされたオブジェクトの
         //Rigidbody2Dコンポーネントを呼び出す
