@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     private Vector3 startPosition;//初期位置
     private Vector3 nowPosition;//現在位置
     private Vector3 wallPosition;//ぶつかった壁の位置
+    GameObject director;
     
 
     void Start()
@@ -36,6 +37,8 @@ public class PlayerController : MonoBehaviour
         defaultJumpForce = jumpForce;
         //playerの初期位置を取得
         this.startPosition = GetComponent<Transform>().position;
+        //UIを変えるためのDirectorを追加
+        this.director = GameObject.Find("GameDirector");
     }
 
 
@@ -183,6 +186,13 @@ public class PlayerController : MonoBehaviour
             Transform wallTransform = collision.transform;
             // Transformからposition値を取得
             this.wallPosition = wallTransform.position;
+        }
+
+        //小判に接触したら、小判が消えて、GameDirectorのGetKobanを呼び出す
+        if (collision.gameObject.CompareTag("Koban"))
+        {
+            this.director.GetComponent<GameDirector>().GetKoban();
+            Destroy(collision.gameObject);
         }
     }
     //接地判定
